@@ -1,0 +1,23 @@
+﻿<Window x:Class="XiangQiWPFDemo.HistoryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:XiangQiWPFDemo"
+        mc:Ignorable="d"
+        Title="历史步骤" Height="400" Width="300" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Content="红方走棋" FontSize="18" HorizontalContentAlignment="Center"/>
+        <Label Content="黑方走棋" Grid.Column="1" FontSize="18" HorizontalContentAlignment="Center"/>
+        <ListBox x:Name="RedHistoryLB" Grid.Row="1"/>
+        <ListBox x:Name="BlackHistoryLB" Grid.Column="1" Grid.Row="1"/>
+    </Grid>
+</Window>

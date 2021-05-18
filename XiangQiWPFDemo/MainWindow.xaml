@@ -1,0 +1,114 @@
+﻿<Window x:Class="XiangQiWPFDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="象棋WPFDemo" Height="700" Width="500" ResizeMode="CanMinimize" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" MouseWheel="Window_MouseWheel" Closed="Window_Closed">
+    <Window.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <ImageBrush x:Key="Button.Static.Background" ImageSource="Images/buttonbg.png" />
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383" />
+        <SolidColorBrush x:Key="Button.MouseOver.Foreground" Color="#FFE5C87E" />
+        <SolidColorBrush x:Key="Button.Pressed.Foreground" Color="#FFE5A85E" />
+        <Style x:Key="WoodButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontFamily" Value="cjkFonts" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Padding" Value="1" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="TextElement.Foreground" TargetName="border" Value="{StaticResource Button.MouseOver.Foreground}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="TextElement.Foreground" TargetName="border" Value="{StaticResource Button.Pressed.Foreground}" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="WoodToggleButtonStyle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontFamily" Value="cjkFonts" />
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="TextElement.Foreground" TargetName="border" Value="{StaticResource Button.MouseOver.Foreground}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="TextElement.Foreground" TargetName="border" Value="{StaticResource Button.Pressed.Foreground}" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Pressed.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="3*" />
+        </Grid.RowDefinitions>
+        <Image Source="Images/bg.jpg" Stretch="Fill" Grid.RowSpan="3" Grid.ColumnSpan="3" />
+        <Image x:Name="Img_Board" Source="Images/board.png" Grid.ColumnSpan="3" MouseLeftButtonDown="Img_Board_MouseLeftButtonDown" MouseMove="Img_Board_MouseMove" MouseLeave="Img_Board_MouseLeave"/>
+        <Button x:Name="StartButton" Grid.Row="1" Margin="20,5" Style="{DynamicResource WoodButtonStyle}" Content="开始" Click="StartButton_Click"/>
+        <Button x:Name="RegretButton" IsEnabled="False" Grid.Row="1" Grid.Column="1" Margin="20,5" Style="{DynamicResource WoodButtonStyle}" Content="悔棋" Click="RegretButton_Click" />
+        <Button x:Name="EndButton" Grid.Row="1" Grid.Column="2" Margin="20,5" Style="{DynamicResource WoodButtonStyle}" Content="结束" Click="EndButton_Click" />
+        <Button x:Name="HistoryButton" IsEnabled="False" Grid.Row="2" Margin="20,20" Style="{DynamicResource WoodButtonStyle}"  Content="历史步骤" Click="HistoryButton_Click"/>
+        <ToggleButton x:Name="LayoutButton" Unchecked="LayoutButton_Unchecked" Checked="LayoutButton_Checked" Grid.Row="2" Grid.Column="1" Margin="20,20" Content="布局模式" Style="{DynamicResource WoodToggleButtonStyle}" />
+        <Button x:Name="FENCodeButton" Grid.Row="2" Grid.Column="2" Margin="20,20" Style="{DynamicResource WoodButtonStyle}"  Content="面板代码" Click="FENCodeButton_Click"/>
+        <Canvas x:Name="canvas" Grid.ColumnSpan="3" Margin="34,24,36,28">
+            <Image x:Name="FocusBoxRed" Source="Images/r_box.png" Width="50" Visibility="Hidden" />
+            <Image x:Name="FocusBoxBlue" Source="Images/b_box.png" Width="50" Visibility="Hidden" />
+            <Image x:Name="PreviewChessman" Width="50" Visibility="Hidden" IsHitTestVisible="False"/>
+        </Canvas>
+    </Grid>
+</Window>
